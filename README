@@ -1,0 +1,20 @@
+# DESIGN SYSTEM
+- minimalist concept
+- label instead of icon for signaling term
+
+# SYSTEM DESIGN
+- modular approach to enforce single responsibility
+- limit nested folder into max 3 depth
+- vanilla react
+- bundled using webpack
+
+# NAMING CONVENTIONS
+- directory: flatcase
+- file: PascalCase
+- label: PascalCase (except styled components theme instance)
+- leading character: capital with underscore next to it before the label
+  P_ => Pages
+  C_ => Components
+  S_ => Styles
+  T_ => Statics
+  U_ => Utils
