@@ -1,6 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const HtmlTemplate = require('./html.template')
 
@@ -19,12 +19,12 @@ module.exports = {
         use: ['babel-loader', '@mdx-js/loader'],
       },
       {
-        exclude: /.*opt\_blur\.jpg$/,
+        exclude: /.*opt_blur\.jpg$/,
         test: /\.(avif|webp|jpg|jpeg|png|mp4|mov|ttf|woff|woff2)$/,
         use: ['file-loader'],
       },
       {
-        test: /.*opt\_blur\.jpg$/,
+        test: /.*opt_blur\.jpg$/,
         use: ['url-loader'],
       },
     ],
@@ -37,10 +37,6 @@ module.exports = {
       '@styles': path.resolve(__dirname, '../src/styles/'),
       '@utils': path.resolve(__dirname, '../src/utils/'),
       '@contents': path.resolve(__dirname, '../src/contents/'),
-      react: 'preact/compat',
-      'react-dom/test-utils': 'preact/test-utils',
-      'react-dom': 'preact/compat',
-      'react/jsx-runtime': 'preact/jsx-runtime',
     },
     extensions: ['*', '.js', '.jsx', '.mdx'],
   },
