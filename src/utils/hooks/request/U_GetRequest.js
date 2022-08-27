@@ -1,5 +1,5 @@
 import { T_RequestAction } from './T_RequestAction'
-export const U_Request = (params) => {
+export const U_GetRequest = (params) => {
   const { request, dispatch, didCancel } = params
 
   const TIMEOUT_IN_MILLISECONDS = 10000
