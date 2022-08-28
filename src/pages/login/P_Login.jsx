@@ -2,7 +2,7 @@ import React from 'react'
 
 import { U_useRequest } from '@utils'
 
-export const P_Login = () => {
+const P_Login = () => {
   const [values, setValues] = React.useState({})
   const AUTHENTICATION_URL = '/tokens/authentication'
 
@@ -45,3 +45,5 @@ export const P_Login = () => {
     </section>
   )
 }
+
+export default P_Login
