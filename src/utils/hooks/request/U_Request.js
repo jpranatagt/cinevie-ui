@@ -1,16 +1,23 @@
 import { T_RequestAction } from './T_RequestAction'
-export const U_GetRequest = (params) => {
-  const { request, dispatch, didCancel } = params
+export const U_Request = (params) => {
+  const { request, dispatch, didCancel = false, message } = params
 
   const TIMEOUT_IN_MILLISECONDS = 10000
   const SUCCESS_STATUS_FLOOR = 100
   const ERROR_STATUS_FLOOR = 400
   const CLIENT_ERROR =
-    'No network detected or problem with browser CORS settings.'
+    'No network detected or problem with browser CORS configurations.'
 
   const isSuccess = (statusCode) =>
     statusCode >= SUCCESS_STATUS_FLOOR &&
     statusCode < ERROR_STATUS_FLOOR
+
+  dispatch({
+    type: T_RequestAction.REQUEST,
+    payload: {
+      status: message.onRequest,
+    },
+  })
 
   request.timeout = TIMEOUT_IN_MILLISECONDS
 
@@ -20,7 +27,7 @@ export const U_GetRequest = (params) => {
       dispatch({
         type: T_RequestAction.ERROR,
         payload: {
-          message: CLIENT_ERROR,
+          status: CLIENT_ERROR,
         },
       })
     }
@@ -35,6 +42,7 @@ export const U_GetRequest = (params) => {
           type: T_RequestAction.SUCCESS,
           payload: {
             data: responseInJSON,
+            status: message.onSuccess,
           },
         })
       }
@@ -43,7 +51,7 @@ export const U_GetRequest = (params) => {
         dispatch({
           type: T_RequestAction.ERROR,
           payload: {
-            message: responseInJSON,
+            status: responseInJSON.error,
           },
         })
       }

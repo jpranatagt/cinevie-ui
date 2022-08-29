@@ -3,12 +3,20 @@ import React from 'react'
 import { T_RequestMethod } from './T_RequestMethod'
 
 import { U_RequestReducer } from './U_RequestReducer'
-import { U_PostRequest } from './U_PostRequest'
-import { U_GetRequest } from './U_GetRequest'
+import { U_Request } from './U_Request'
 
-export const U_useRequest = (url) => {
-  const BASE_ENDPOINT = 'http://localhost:4000/v1'
+export const U_useRequest = (url, requestMessage = {}) => {
+  const BASE_ENDPOINT = 'https://api.cinevie.jpranata.tech/v1'
   const requestedEndpoint = `${BASE_ENDPOINT}${url}`
+
+  const message = Object.assign(
+    {
+      onDefault: 'No actions',
+      onRequest: 'Requesting',
+      onSuccess: 'Succeed',
+    },
+    requestMessage
+  )
 
   const { GET, POST } = T_RequestMethod
 
@@ -17,7 +25,7 @@ export const U_useRequest = (url) => {
   const initialState = {
     loading: true,
     error: false,
-    message: '',
+    status: message.onDefault,
     data: [],
   }
 
@@ -45,30 +53,55 @@ export const U_useRequest = (url) => {
 
   const U_useGetRequest = (data) => {
     request.open(GET, requestedEndpoint)
+
     React.useEffect(() => {
       let didCancel = false
-      U_GetRequest({ request, dispatch, didCancel })
+      U_Request({ request, dispatch, didCancel, message })
+
+      // avoid multiple re-render by putting it inside useEffect
+      requestSend(data)
 
       return () => {
         didCancel = true
       }
     }, [])
+  }
+
+  const U_useGetAuthRequest = (data) => {
+    request.withCredentials = true
+
+    U_useGetRequest(data)
+  }
+
+  // state means request could change application condition and/or database
+  const U_useStateRequest = (data) => {
+    U_Request({ request, dispatch, message })
 
     requestSend(data)
   }
 
+  const U_useAuthStateRequest = (method, data) => {
+    request.open(method, requestedEndpoint)
+    request.withCredentials = true
+
+    U_useStateRequest(data)
+  }
+
   const U_usePostRequest = (data) => {
     request.open(POST, requestedEndpoint)
+    U_useStateRequest(data)
+  }
 
-    U_PostRequest({ request, dispatch })
-
-    requestSend(data)
+  const U_usePostAuthRequest = (data) => {
+    U_useAuthStateRequest(POST, data)
   }
 
   const requestHandler = {
     state,
     U_useGetRequest,
+    U_useGetAuthRequest,
     U_usePostRequest,
+    U_usePostAuthRequest,
   }
 
   return requestHandler
