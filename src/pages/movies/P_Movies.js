@@ -1,107 +1,116 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { S_Layout } from '@styles'
+
 import { U_useRequest } from '@utils'
 
 const P_Movies = () => {
   const MOVIES_URL = '/movies'
+  const message = {
+    onDefault: 'Movie List',
+    onRequest: 'Loading movie list',
+    onSuccess: 'Movie List',
+  }
 
-  const { state, U_useGetRequest } = U_useRequest(MOVIES_URL)
-  const { loading, error, data, message } = state
-  U_useGetRequest()
+  const { state, U_useGetAuthRequest } = U_useRequest(
+    MOVIES_URL,
+    message
+  )
+  const { loading, error, data, status } = state
+  U_useGetAuthRequest()
 
   if (loading) {
     return (
-      <section>
-        <p> Loading ... </p>
-      </section>
+      <S_Wrapper>
+        <h3> {status} </h3>
+      </S_Wrapper>
     )
   }
 
   if (error) {
     return (
-      <section>
-        <p>{JSON.stringify(message)} </p>
-      </section>
+      <S_Wrapper>
+        <h3> {status} </h3>
+      </S_Wrapper>
     )
   }
 
   const { metadata, movies } = data
 
-  const convertMinuteToHour = (timeInMinutes) => {
-    const hour = Math.floor(timeInMinutes / 60)
-    const minutes = timeInMinutes % 60
-
-    return `${hour}h ${minutes}m`
-  }
-
   return (
-    <section>
-      <p>List of movies </p>
-      {movies.map((movie) => (
-        <article key={movie.title}>
-          <h1>{movie.title}</h1>
-          <p>
-            <span> {movie.year} </span>
-            <span> &middot; </span>
-            <span>{convertMinuteToHour(movie.runtime)}</span>
-          </p>
-          <S_Media>
-            <li>
+    <S_Wrapper>
+      <h3>{status}</h3>
+      <S_MoviesWrapper>
+        {movies.map((movie) => (
+          <S_Movie key={movie.title}>
+            <S_Cover>
               <img src={movie.cover} alt="movie cover" />
-            </li>
-            <li>
-              <iframe width="420" height="315" src={movie.trailer} />
-            </li>
-          </S_Media>
-          <S_Genres>
-            {movie.genres.map((genre) => (
-              <span key={genre}> &middot; {genre} </span>
-            ))}
-          </S_Genres>
-          <p>{movie.description}</p>
-          <S_Stars>
-            <span>
-              <strong> Stars </strong>
-            </span>
-            <span>
-              {movie.stars.map((star) => (
-                <span key={star}> &middot; {star} </span>
-              ))}
-            </span>
-          </S_Stars>
-        </article>
-      ))}
-    </section>
+            </S_Cover>
+            <S_Details>
+              <h4>
+                {movie.title} ({movie.year})
+              </h4>
+              <S_RuntimeGenres>
+                <span>{movie.runtime} min</span>
+                <span> &#124; </span>
+                <S_Genres>
+                  {movie.genres.map((genre) => (
+                    <li key={genre}> {genre} </li>
+                  ))}
+                </S_Genres>
+              </S_RuntimeGenres>
+              <p>{movie.description}</p>
+              <S_Stars>
+                <span>Stars</span>
+                <span>
+                  {movie.stars.map((star) => (
+                    <h6 key={star}> &middot; {star} </h6>
+                  ))}
+                </span>
+              </S_Stars>
+            </S_Details>
+          </S_Movie>
+        ))}
+      </S_MoviesWrapper>
+    </S_Wrapper>
   )
 }
 
 export default P_Movies
 
-const S_Media = styled.ul`
-  --gap: 32px;
-  padding: 0;
+const S_Wrapper = styled.section`
+  ${S_Layout}
+`
 
+const S_MoviesWrapper = styled.ul`
   column-count: 2;
-  column-gap: var(--gap);
 
   list-style-type: none;
+`
+const S_Movie = styled.li``
 
-  li {
-    page-break-inside: avoid;
-    break-inside: avoid;
-
-    img {
-      width: 100%;
-    }
+const S_Cover = styled.picture`
+  img {
+    width: 100%;
   }
 `
 
-const S_Genres = styled.p`
-  text-transform: capitalize;
+const S_Details = styled.article``
+
+const S_RuntimeGenres = styled.section`
+  display: flex;
+  flex-flow: row nowrap;
+
+  gap: 16px;
 `
 
-const S_Stars = styled(S_Genres)`
+const S_Genres = styled.ul`
+  text-transform: capitalize;
+  list-style-type: none;
+`
+
+const S_Stars = styled(S_RuntimeGenres)`
   display: flex;
   flex-flow: row nowrap;
   gap: 24px;

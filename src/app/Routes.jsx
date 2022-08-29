@@ -1,25 +1,21 @@
-import React, { Suspense } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom'
+import React from 'react'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
+import { P_Suspense } from '@pages'
 
 const Routes = ({ routes = [] }) => {
   return (
     <Router>
-      <Switch>
-        <Suspense fallback={<div />}>
-          {routes.map((route) => (
-            <Route
-              exact
-              key={route.path}
-              path={route.path}
-              component={route.component}
-            />
-          ))}
-        </Suspense>
-      </Switch>
+      <P_Suspense>
+        {routes.map((route) => (
+          <Route
+            exact
+            key={route.path}
+            path={route.path}
+            component={route.component}
+          />
+        ))}
+      </P_Suspense>
     </Router>
   )
 }
