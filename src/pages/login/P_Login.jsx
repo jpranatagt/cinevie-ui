@@ -3,10 +3,24 @@ import React from 'react'
 import { U_useRequest } from '@utils'
 
 const P_Login = () => {
-  const [values, setValues] = React.useState({})
-  const AUTHENTICATION_URL = '/tokens/authentication'
+  const initialValues = {
+    email: '',
+    password: '',
+  }
+  const [values, setValues] = React.useState(initialValues)
 
-  const { U_usePostRequest } = U_useRequest(AUTHENTICATION_URL)
+  const AUTHENTICATION_URL = '/tokens/authentication'
+  const message = {
+    onDefault: 'Login',
+    onRequest: 'Loggin in ...',
+    onSuccess: 'Login success!',
+  }
+
+  const { state, U_usePostAuthRequest } = U_useRequest(
+    AUTHENTICATION_URL,
+    message
+  )
+  const { status } = state
 
   const handleChange = (event) => {
     event.preventDefault()
@@ -18,7 +32,9 @@ const P_Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
 
-    U_usePostRequest(values)
+    U_usePostAuthRequest(values)
+
+    setValues(initialValues)
   }
 
   return (
@@ -40,7 +56,7 @@ const P_Login = () => {
         />
         <br />
         <br />
-        <button type="submit">Login</button>
+        <button type="submit">{status}</button>
       </form>
     </section>
   )
