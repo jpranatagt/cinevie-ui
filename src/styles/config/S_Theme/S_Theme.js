@@ -19,7 +19,6 @@ const {
 export const S_Dark = {
   background: primary_10,
   text: primary_80,
-  home_bg_linear: 'hsla(0, 0%, 0%, 0.7), hsla(0, 0%, 0%, 0.6)',
   black: primary_0,
   white: primary_100,
   primary_0,
@@ -40,7 +39,6 @@ export const S_Dark = {
 export const S_Light = {
   background: primary_90,
   text: primary_20,
-  home_bg_linear: 'hsla(0, 0%, 90%, 0.3), hsla(0, 0%, 90%, 0.2)',
   black: primary_0,
   white: primary_100,
   primary_0: primary_100,

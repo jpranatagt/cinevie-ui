@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-import { S_SpaceX as SX } from '@styles'
+import { S_SpaceX as SX } from '../../../config'
 
 export const S_SpaceX = css`
   --spaceX-xs: ${SX.xs};

@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-import { S_Screen } from '@styles'
+import { S_Screen } from '../../mixin'
 
 export const S_FloatButton = css`
   --float-button-x: var(--spaceX-md);

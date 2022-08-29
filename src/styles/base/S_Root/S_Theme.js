@@ -16,6 +16,4 @@ export const S_Theme = css`
   --primary-90: ${(p) => p.theme.primary_90};
   --primary-95: ${(p) => p.theme.primary_95};
   --primary-100: ${(p) => p.theme.primary_100};
-
-  --home-bg-linear: ${(p) => p.theme.home_bg_linear};
 `

@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-import { S_Screen } from '@styles'
+import { S_Screen } from '../../mixin'
 import { S_Types } from './S_Types'
 
 export const S_Typography = css`
