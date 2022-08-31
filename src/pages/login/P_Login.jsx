@@ -1,13 +1,19 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
+import styled from 'styled-components'
 
+import { S_Layout } from '@styles'
 import { U_useRequest } from '@utils'
 
+import { T_LoginModel } from './T_LoginModel'
+
+import { C_Form } from '@components'
+
 const P_Login = () => {
-  const initialValues = {
+  const initialState = {
     email: '',
     password: '',
   }
-  const [values, setValues] = React.useState(initialValues)
 
   const AUTHENTICATION_URL = '/tokens/authentication'
   const message = {
@@ -16,50 +22,33 @@ const P_Login = () => {
     onSuccess: 'Login success!',
   }
 
+  const history = useHistory()
   const { state, U_usePostAuthRequest } = U_useRequest(
     AUTHENTICATION_URL,
     message
   )
   const { status } = state
 
-  const handleChange = (event) => {
-    event.preventDefault()
+  const isLoggedIn = status === message.onSuccess
 
-    const { name, value } = event.target
-    setValues({ ...values, [name]: value })
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-
-    U_usePostAuthRequest(values)
-
-    setValues(initialValues)
+  if (isLoggedIn) {
+    setTimeout(() => history.push('/'), 3000)
   }
 
   return (
-    <section>
-      <form onSubmit={(event) => handleSubmit(event)}>
-        <label>Email: </label>
-        <input
-          name="email"
-          type="email"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <label>Password: </label>
-        <input
-          name="password"
-          type="password"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <button type="submit">{status}</button>
-      </form>
-    </section>
+    <S_Wrapper>
+      <C_Form
+        model={T_LoginModel}
+        initialState={initialState}
+        title={status}
+        handlePost={U_usePostAuthRequest}
+      />
+    </S_Wrapper>
   )
 }
 
 export default P_Login
+
+const S_Wrapper = styled.section`
+  ${S_Layout}
+`
