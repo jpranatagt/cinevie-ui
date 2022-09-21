@@ -1,9 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { S_Layout } from '@styles'
 
 import { U_useRequest } from '@utils'
+
+import { C_ImageRenderer } from '@components'
 
 const P_Movies = () => {
   const MOVIES_URL = '/movies'
@@ -45,7 +48,12 @@ const P_Movies = () => {
         {movies.map((movie) => (
           <S_Movie key={movie.title}>
             <S_Cover>
-              <img src={movie.cover} alt="movie cover" />
+              <Link to={`/movies/${movie.id}`}>
+                <C_ImageRenderer
+                  src={movie.cover}
+                  alt={movie.title}
+                />
+              </Link>
             </S_Cover>
             <S_Details>
               <h4>

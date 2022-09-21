@@ -5,6 +5,7 @@ const P_Logout = lazy(() => import('./logout'))
 const P_Movies = lazy(() => import('./movies'))
 const P_Movie = lazy(() => import('./movie'))
 const P_New = lazy(() => import('./new'))
+const P_Update = lazy(() => import('./update'))
 
 export { P_Suspense } from './suspense'
 
@@ -28,5 +29,9 @@ export const P_Routes = [
   {
     path: '/new',
     component: P_New,
+  },
+  {
+    path: '/update/:id',
+    component: P_Update,
   },
 ]
