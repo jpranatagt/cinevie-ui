@@ -15,10 +15,6 @@ module.exports = {
         },
       },
       {
-        test: /\.mdx$/,
-        use: ['babel-loader', '@mdx-js/loader'],
-      },
-      {
         exclude: /.*opt_blur\.jpg$/,
         test: /\.(avif|webp|jpg|jpeg|png|mp4|mov|ttf|woff|woff2)$/,
         use: ['file-loader'],

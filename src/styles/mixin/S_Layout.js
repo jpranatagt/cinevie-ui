@@ -6,7 +6,7 @@ export const S_Layout = css`
   padding: var(--spaceY-sl) var(--spaceX-md);
 
   ${S_Screen.md`
-    padding: var(--spaceY-ssl) var(--spaceX-xxl);
+    padding: var(--spaceY-sl) var(--spaceX-xxl);
   `}
 
   ${S_Screen.xl`
