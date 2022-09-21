@@ -1,9 +1,16 @@
 import React from 'react'
+import styled from 'styled-components'
+
+import { T_NewModel } from './T_NewModel'
+
+import { S_Layout } from '@styles'
 
 import { U_useRequest } from '@utils'
 
+import { C_Form } from '@components'
+
 const P_New = () => {
-  const initialValue = {
+  const initialState = {
     title: '',
     description: '',
     cover: '',
@@ -14,7 +21,6 @@ const P_New = () => {
     stars: [],
   }
 
-  const [values, setValues] = React.useState(initialValue)
   const ADD_URL = '/movies'
   const message = {
     onDefault: 'Add movie',
@@ -29,93 +35,21 @@ const P_New = () => {
 
   const { status } = state
 
-  const handleChange = (event) => {
-    event.preventDefault()
-
-    const { name, value } = event.target
-    setValues({ ...values, [name]: value })
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-
-    U_usePostAuthRequest(values)
-  }
-
   return (
-    <section>
+    <S_Wrapper>
       <h3>Add a new movie</h3>
-      <form onSubmit={(event) => handleSubmit(event)}>
-        <label>Title: </label>
-        <input
-          name="title"
-          type="text"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <label>Description: </label>
-        <input
-          name="description"
-          type="text"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <label>Cover: </label>
-        <input
-          name="cover"
-          type="text"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <label>Trailer: </label>
-        <input
-          name="trailer"
-          type="text"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <label>Year: </label>
-        <input
-          name="year"
-          type="number"
-          min="1888"
-          max="2099"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <label>Runtime: </label>
-        <input
-          name="runtime"
-          type="number"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <label>Genres: </label>
-        <input
-          name="genres"
-          type="text"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <label>Stars: </label>
-        <input
-          name="stars"
-          type="text"
-          onChange={(event) => handleChange(event)}
-        />
-        <br />
-        <br />
-        <button type="submit">{status}</button>
-      </form>
-    </section>
+      <C_Form
+        model={T_NewModel}
+        initialState={initialState}
+        title={status}
+        handlePost={U_usePostAuthRequest}
+      />
+    </S_Wrapper>
   )
 }
 
 export default P_New
+
+const S_Wrapper = styled.section`
+  ${S_Layout}
+`
