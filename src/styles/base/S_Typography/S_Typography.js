@@ -49,18 +49,14 @@ export const S_Typography = css`
   }
 
   h4 {
-    ${S_Types.BodySM}
+    ${S_Types.Body}
 
     ${S_Screen.md`
-      ${S_Types.Body}
+      ${S_Types.TitleXS}
     `}
 
     ${S_Screen.lg`
-      ${S_Types.XS}
-    `}
-
-    ${S_Screen.xl`
-      ${S_Types.TitleSM}
+      ${S_Types.BodyTitleSM}
     `}
 
     ${S_Screen.xxxl`
@@ -69,10 +65,10 @@ export const S_Typography = css`
   }
 
   h5 {
-    ${S_Types.Body}
+    ${S_Types.BodySM}
 
-    ${S_Screen.lg`
-      ${S_Types.TitleXS}
+    ${S_Screen.md`
+      ${S_Types.Body}
     `}
 
     ${S_Screen.xxl`
