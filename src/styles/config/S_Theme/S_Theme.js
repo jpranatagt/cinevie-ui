@@ -14,6 +14,19 @@ const {
   primary_90,
   primary_95,
   primary_100,
+  secondary_0,
+  secondary_5,
+  secondary_10,
+  secondary_20,
+  secondary_30,
+  secondary_40,
+  secondary_50,
+  secondary_60,
+  secondary_70,
+  secondary_80,
+  secondary_90,
+  secondary_95,
+  secondary_100,
 } = S_Colors
 
 export const S_Dark = {
@@ -34,6 +47,19 @@ export const S_Dark = {
   primary_90,
   primary_95,
   primary_100,
+  secondary_0,
+  secondary_5,
+  secondary_10,
+  secondary_20,
+  secondary_30,
+  secondary_40,
+  secondary_50,
+  secondary_60,
+  secondary_70,
+  secondary_80,
+  secondary_90,
+  secondary_95,
+  secondary_100,
 }
 
 export const S_Light = {
@@ -54,4 +80,18 @@ export const S_Light = {
   primary_90: primary_10,
   primary_95: primary_5,
   primary_100: primary_0,
+
+  secondary_0: secondary_100,
+  secondary_5: secondary_95,
+  secondary_10: secondary_90,
+  secondary_20: secondary_80,
+  secondary_30: secondary_70,
+  secondary_40: secondary_60,
+  secondary_50,
+  secondary_60: secondary_40,
+  secondary_70: secondary_30,
+  secondary_80: secondary_20,
+  secondary_90: secondary_10,
+  secondary_95: secondary_5,
+  secondary_100: secondary_0,
 }
