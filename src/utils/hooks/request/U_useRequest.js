@@ -18,7 +18,7 @@ export const U_useRequest = (url, requestMessage = {}) => {
     requestMessage
   )
 
-  const { GET, POST } = T_RequestMethod
+  const { GET, POST, PATCH } = T_RequestMethod
 
   const request = new XMLHttpRequest()
 
@@ -96,12 +96,17 @@ export const U_useRequest = (url, requestMessage = {}) => {
     U_useAuthStateRequest(POST, data)
   }
 
+  const U_usePatchAuthRequest = (data) => {
+    U_useAuthStateRequest(PATCH, data)
+  }
+
   const requestHandler = {
     state,
     U_useGetRequest,
     U_useGetAuthRequest,
     U_usePostRequest,
     U_usePostAuthRequest,
+    U_usePatchAuthRequest,
   }
 
   return requestHandler

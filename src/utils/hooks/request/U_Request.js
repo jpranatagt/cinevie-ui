@@ -5,8 +5,7 @@ export const U_Request = (params) => {
   const TIMEOUT_IN_MILLISECONDS = 10000
   const SUCCESS_STATUS_FLOOR = 100
   const ERROR_STATUS_FLOOR = 400
-  const CLIENT_ERROR =
-    'No network detected or problem with browser CORS configurations.'
+  const CLIENT_ERROR = 'No network detected or CORS not allowed.'
 
   const isSuccess = (statusCode) =>
     statusCode >= SUCCESS_STATUS_FLOOR &&
@@ -51,7 +50,7 @@ export const U_Request = (params) => {
         dispatch({
           type: T_RequestAction.ERROR,
           payload: {
-            status: responseInJSON.error,
+            status: JSON.stringify(responseInJSON.error),
           },
         })
       }
