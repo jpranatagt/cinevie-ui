@@ -1,17 +1,19 @@
 import React from 'react'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 import { P_Routes } from '@pages'
 
-import { U_useThemeContextProvider } from '@utils'
-
 import Routes from './Routes'
 
+import { C_Navigation } from '@components'
+
 const App = () => {
-	return (
-		<U_useThemeContextProvider>
-			<Routes routes={P_Routes} />
-		</U_useThemeContextProvider>
-	)
+  return (
+    <Router>
+      <C_Navigation />
+      <Routes routes={P_Routes} />
+    </Router>
+  )
 }
 
 export default App

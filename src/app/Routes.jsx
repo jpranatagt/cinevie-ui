@@ -1,11 +1,12 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import { HelmetProvider } from 'react-helmet-async'
 
 import { P_Suspense } from '@pages'
 
 const Routes = ({ routes = [] }) => {
   return (
-    <Router>
+    <HelmetProvider>
       <P_Suspense>
         {routes.map((route) => (
           <Route
@@ -16,7 +17,7 @@ const Routes = ({ routes = [] }) => {
           />
         ))}
       </P_Suspense>
-    </Router>
+    </HelmetProvider>
   )
 }
 
