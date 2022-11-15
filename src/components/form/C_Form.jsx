@@ -1,19 +1,20 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { U_useForm } from './utils'
+
 import { C_Input } from './C_Input'
 
 export const C_Form = (props) => {
   const {
     model = {},
+    validation = {},
     initialState = {},
     updateDynamic = {},
     title = 'Submit',
     handlePost = () => {},
     gap = 'lg',
   } = props
-
-  const [values, setValues] = React.useState(initialState)
 
   const isDynamic = (inputs) => {
     if (inputs) {
@@ -23,65 +24,29 @@ export const C_Form = (props) => {
     return {}
   }
 
-  const convertNumberToString = (object) => {
-    Object.keys(object).forEach((property) => {
-      if (typeof object[property] === 'number') {
-        object[property] = object[property].toString()
-      }
-    })
-
-    return object
-  }
-
   const [dynamicInput, setDynamicInput] = React.useState(
-    isDynamic(updateDynamic || model.dynamic)
+    isDynamic(
+      Object.keys(updateDynamic).length > 0
+        ? updateDynamic
+        : model.dynamic
+    )
   )
 
-  const handleStaticInputChange = (event) => {
-    event.preventDefault()
-
-    const { name, value } = event.target
-
-    setValues({ ...values, [name]: value })
-  }
-
-  const handleDynamicInputChange = (event, index) => {
-    event.preventDefault()
-    const { name, value } = event.target
-
-    values[name][index] = value
-
-    setValues({
-      ...values,
-    })
-  }
-
-  const addInput = (key, input) => {
-    dynamicInput[key] = [...dynamicInput[key], input]
-    setDynamicInput({ ...dynamicInput })
-  }
-
-  const removeInput = (key, index) => {
-    const copyOfValues = { ...values }
-    const copyOfDynamicInput = { ...dynamicInput }
-
-    copyOfValues[key].splice(index, 1)
-    copyOfDynamicInput[key].splice(index, 1)
-
-    setValues({ ...copyOfValues })
-    setDynamicInput({ ...copyOfDynamicInput })
-  }
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
-    const stringifiedObject = convertNumberToString(values)
-
-    handlePost(stringifiedObject)
-
-    setValues(initialState)
-    event.target.reset()
-  }
+  const {
+    values,
+    errors,
+    handleStaticInputChange,
+    handleDynamicInputChange,
+    handleSubmit,
+    addInput,
+    removeInput,
+  } = U_useForm({
+    initialState,
+    setDynamicInput,
+    dynamicInput,
+    validation,
+    handlePost,
+  })
 
   return (
     <S_Wrapper gap={gap} onSubmit={(event) => handleSubmit(event)}>
@@ -89,6 +54,7 @@ export const C_Form = (props) => {
         <C_Input
           key={item.name}
           value={values[item.name]}
+          errors={errors}
           handleChange={handleStaticInputChange}
           index={index}
           required
@@ -100,6 +66,7 @@ export const C_Form = (props) => {
         <S_DynamicInput key={`${item.name}${index}`}>
           <C_Input
             value={values[item.name] || item}
+            errors={errors}
             handleChange={handleDynamicInputChange}
             index={index}
             required
@@ -127,6 +94,7 @@ export const C_Form = (props) => {
         <S_DynamicInput key={`${item.name}${index}`}>
           <C_Input
             value={values[item.name] || item}
+            errors={errors}
             handleChange={handleDynamicInputChange}
             index={index}
             required
