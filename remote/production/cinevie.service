@@ -1,0 +1,29 @@
+[Unit]
+# short description in human-readable name for the service
+Description=Cinevie Service
+
+# Wait until the network is "up" before starting the service
+After=network-online.target
+Wants=network-online.target
+
+# configure service start rate limiting
+# if service is (re)started more than 5 times in 600s
+# then don't permit it to start anymore
+StartLimitIntervalSec=600
+StartLimitBurst=5
+
+[Service]
+User=u_cinevie
+Group=u_cinevie
+WorkingDirectory=/home/u_cinevie
+ExecStart=NODE_ENV=production PORT=80 pm2 serve ./ui --name=cinevie --spa
+
+# automatically restart the service after 5 seconds wait if it exits with non-zero code
+# restart limiting constraint applied
+Restart=on-failure
+RestartSec=5
+
+[Install]
+# start the service automatically at boot time
+# the multi-user.target describe a boot state when the system will accept logins
+WantedBy=multi-user.target
