@@ -21,3 +21,10 @@ export const U_IsURLValid = (url) => {
 
   return !pattern.test(url)
 }
+
+export const U_IsArrayContains = (
+  firstArray = [],
+  secondArray = []
+) => {
+  return !!firstArray.some((v) => secondArray.indexOf(v) !== -1)
+}

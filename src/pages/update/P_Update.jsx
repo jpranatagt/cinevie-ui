@@ -7,6 +7,7 @@ import { S_Layout } from '@styles'
 import { U_useRequest } from '@utils'
 
 import { T_NewModel } from './T_NewModel'
+import { T_UpdateValidation } from './T_UpdateValidation'
 
 import { C_Form } from '@components'
 
@@ -54,6 +55,7 @@ const P_Update = () => {
       <h3>Update the movie</h3>
       <C_Form
         model={T_NewModel}
+        validation={T_UpdateValidation}
         initialState={movie}
         updateDynamic={updateDynamic}
         title={status}

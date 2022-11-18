@@ -3,9 +3,10 @@ import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { S_Layout, S_Screen } from '@styles'
-import { U_useRequest } from '@utils'
+import { U_useRequest, U_usePermissionsUpdate } from '@utils'
 
 import { T_LoginModel } from './T_LoginModel'
+import { T_LoginValidation } from './T_LoginValidation'
 
 import { C_Form } from '@components'
 
@@ -25,25 +26,30 @@ const P_Login = () => {
   }
 
   const history = useHistory()
+  const { U_useAddPermissions } = U_usePermissionsUpdate()
   const { state, U_usePostAuthRequest } = U_useRequest(
     AUTHENTICATION_URL,
     message
   )
   const { status } = state
 
-  const isLoggedIn = status === message.onSuccess
-
-  if (isLoggedIn) {
-    setTimeout(() => history.push('/'), 3000)
-  }
-
   const formProperties = {
     model: T_LoginModel,
+    validation: T_LoginValidation,
     initialState: initialState,
     title: status,
     handlePost: U_usePostAuthRequest,
     gap: 'xl',
   }
+
+  const isLoggedIn = status === message.onSuccess
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      U_useAddPermissions()
+      setTimeout(() => history.push('/movies'), 3000)
+    }
+  }, [status])
 
   return (
     <S_Wrapper>

@@ -1,5 +1,7 @@
 import { lazy } from 'react'
 
+const P_Landing = lazy(() => import('./landing'))
+const P_Register = lazy(() => import('./register'))
 const P_Login = lazy(() => import('./login'))
 const P_Logout = lazy(() => import('./logout'))
 const P_Movies = lazy(() => import('./movies'))
@@ -9,29 +11,48 @@ const P_Update = lazy(() => import('./update'))
 
 export { P_Suspense } from './suspense'
 
+const moviesRead = ['movies:read']
+const moviesWrite = ['movies:read', 'movies:write']
+
 export const P_Routes = [
   {
+    path: '/',
+    page: P_Landing,
+  },
+  {
+    path: '/register',
+    page: P_Register,
+  },
+  {
     path: '/login',
-    component: P_Login,
+    page: P_Login,
   },
   {
     path: '/logout',
-    component: P_Logout,
+    page: P_Logout,
   },
   {
-    path: '/',
-    component: P_Movies,
+    path: '/movies',
+    page: P_Movies,
+    permissions: moviesRead,
+    redirectPath: '/',
   },
   {
     path: '/movies/:id',
-    component: P_Movie,
+    page: P_Movie,
+    permissions: moviesRead,
+    redirectPath: '/',
   },
   {
     path: '/new',
-    component: P_New,
+    page: P_New,
+    permissions: moviesWrite,
+    redirectPath: '/movies',
   },
   {
     path: '/update/:id',
-    component: P_Update,
+    page: P_Update,
+    permissions: moviesWrite,
+    redirectPath: '/movies',
   },
 ]

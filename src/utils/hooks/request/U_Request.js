@@ -34,8 +34,9 @@ export const U_Request = (params) => {
 
   request.onload = () => {
     const responseInJSON = JSON.parse(request.response)
+    const statusCode = request.status
 
-    if (isSuccess(request.status)) {
+    if (isSuccess(statusCode)) {
       if (!didCancel) {
         dispatch({
           type: T_RequestAction.SUCCESS,

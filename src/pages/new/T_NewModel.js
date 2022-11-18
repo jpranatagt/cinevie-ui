@@ -8,11 +8,9 @@ export const T_NewModel = {
     { type: 'number', name: 'runtime', label: 'Runtime' },
   ],
   dynamic: {
-    genres: [
-      { type: 'text', name: 'genres', label: 'insert a genre' },
-    ],
+    genres: [{ type: 'text', name: 'genres', label: 'e.g Action' }],
     stars: [
-      { type: 'text', name: 'stars', label: 'insert a star name' },
+      { type: 'text', name: 'stars', label: 'e.g Charlie Chaplin' },
     ],
   },
 }

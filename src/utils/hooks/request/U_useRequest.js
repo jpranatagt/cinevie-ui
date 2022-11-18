@@ -5,6 +5,8 @@ import { T_RequestMethod } from './T_RequestMethod'
 import { U_RequestReducer } from './U_RequestReducer'
 import { U_Request } from './U_Request'
 
+import { U_GenerateNumber } from './U_GenerateNumber'
+
 export const U_useRequest = (url, requestMessage = {}) => {
   const BASE_ENDPOINT = 'https://api.cinevie.jpranata.tech/v1'
   const requestedEndpoint = `${BASE_ENDPOINT}${url}`
@@ -27,6 +29,7 @@ export const U_useRequest = (url, requestMessage = {}) => {
     error: false,
     status: message.onDefault,
     data: [],
+    refetch_ref: U_GenerateNumber(),
   }
 
   const [state, dispatch] = React.useReducer(
@@ -64,7 +67,7 @@ export const U_useRequest = (url, requestMessage = {}) => {
       return () => {
         didCancel = true
       }
-    }, [])
+    }, [state.refetch_ref])
   }
 
   const U_useGetAuthRequest = (data) => {
@@ -100,13 +103,24 @@ export const U_useRequest = (url, requestMessage = {}) => {
     U_useAuthStateRequest(PATCH, data)
   }
 
+  const U_usePermissionsCheck = () => {
+    U_useGetAuthRequest()
+  }
+
+  const U_useLogout = () => {
+    U_usePostAuthRequest()
+  }
+
   const requestHandler = {
+    dispatch,
     state,
     U_useGetRequest,
     U_useGetAuthRequest,
     U_usePostRequest,
     U_usePostAuthRequest,
     U_usePatchAuthRequest,
+    U_usePermissionsCheck,
+    U_useLogout,
   }
 
   return requestHandler

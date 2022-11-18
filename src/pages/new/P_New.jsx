@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { T_NewModel } from './T_NewModel'
+import { T_NewValidation } from './T_NewValidation'
 
 import { S_Layout } from '@styles'
 
@@ -40,6 +41,7 @@ const P_New = () => {
       <h3>Add a new movie</h3>
       <C_Form
         model={T_NewModel}
+        validation={T_NewValidation}
         initialState={initialState}
         title={status}
         handlePost={U_usePostAuthRequest}
