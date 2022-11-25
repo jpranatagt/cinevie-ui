@@ -19,7 +19,7 @@ const P_Register = () => {
     password: '',
   }
 
-  const AUTHENTICATION_URL = '/tokens/authentication'
+  const AUTHENTICATION_URL = '/users'
   const message = {
     onDefault: 'Register',
     onRequest: 'Registering ...',

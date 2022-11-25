@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { S_Screen } from '@styles'
 import { U_useTheme } from '@utils'
 
-export const C_Theme = ({ handleMenu }) => {
+export const C_Theme = ({ handleMenu = () => {} }) => {
   const { theme, themeToggler } = U_useTheme()
   const isDark = theme === 'dark'
 

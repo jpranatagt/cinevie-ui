@@ -1,24 +1,25 @@
 import React from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 
-import { Route } from 'react-router-dom'
 import { P_Suspense } from '@pages'
 
 import { PermissionsRoute } from './PermissionsRoute'
+import { PublicRoute } from './PublicRoute'
 
 const Routes = ({ routes = [] }) => {
+  const moviesRead = ['movies:read']
   return (
     <HelmetProvider>
       <P_Suspense>
         {routes.map((route) =>
           route.permissions ? (
-            <PermissionsRoute key={route.path} exact {...route} />
+            <PermissionsRoute exact key={route.path} {...route} />
           ) : (
-            <Route
-              key={route.path}
+            <PublicRoute
               exact
-              path={route.path}
-              component={route.page}
+              key={route.path}
+              permissions={moviesRead}
+              {...route}
             />
           )
         )}

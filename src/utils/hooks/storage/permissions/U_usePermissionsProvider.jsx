@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { U_useRequest } from '@utils'
+import { U_useRequest, U_IsArrayContains } from '@utils'
 
 const permissionsStoreContext = React.createContext()
 
@@ -69,4 +69,22 @@ export const U_usePermissionsProvider = ({ children }) => {
       </permissionsStoreContext.Provider>
     </permissionsUpdateContext.Provider>
   )
+}
+
+export const U_useIsPermitted = (requiredPermissions = []) => {
+  const { permissions } = U_usePermissionsStore()
+  const isPermitted = U_IsArrayContains(
+    permissions,
+    requiredPermissions
+  )
+
+  return isPermitted
+}
+
+export const U_useIsAuthenticated = () => {
+  const { permissions } = U_usePermissionsStore()
+  const moviesRead = ['movies:read']
+  const isAuthenticated = U_IsArrayContains(permissions, moviesRead)
+
+  return isAuthenticated
 }

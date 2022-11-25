@@ -1,8 +1,9 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { S_Screen } from '@styles'
+
+import { C_MenuList } from './C_MenuList'
 import { C_Theme } from './C_Theme'
 
 export const C_NavigationMenuToggle = (props) => {
@@ -14,13 +15,7 @@ export const C_NavigationMenuToggle = (props) => {
 
   return (
     <S_Wrapper isOpened={isOpened}>
-      {menus.map((item) => (
-        <li key={item.title}>
-          <NavLink exact to={item.path} onClick={() => handleMenu()}>
-            <h2>{item.title}</h2>
-          </NavLink>
-        </li>
-      ))}
+      <C_MenuList menus={menus} handleMenu={handleMenu} />
       <C_Theme handleMenu={handleMenu} />
     </S_Wrapper>
   )

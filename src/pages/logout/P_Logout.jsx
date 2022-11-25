@@ -1,5 +1,4 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 
 import { U_useRequest, U_usePermissionsUpdate } from '@utils'
 
@@ -12,7 +11,6 @@ const P_Logout = () => {
   }
 
   const { state, U_useLogout } = U_useRequest(LOGOUT_URL, message)
-  const history = useHistory()
   const { U_useRemovePermissions } = U_usePermissionsUpdate()
 
   const { status } = state
@@ -25,8 +23,7 @@ const P_Logout = () => {
 
   React.useEffect(() => {
     if (isLoggedOut) {
-      U_useRemovePermissions()
-      setTimeout(() => history.push('/'), 3000)
+      setTimeout(() => U_useRemovePermissions(), 3000)
     }
   }, [status])
 

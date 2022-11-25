@@ -34,7 +34,7 @@ export const P_Routes = [
     path: '/logout',
     page: P_Logout,
     permissions: moviesRead,
-    redirectPath: '/login',
+    redirectPath: '/',
   },
   {
     path: '/movies',

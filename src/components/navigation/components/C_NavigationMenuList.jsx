@@ -1,20 +1,15 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { S_Screen } from '@styles'
+
+import { C_MenuList } from './C_MenuList'
 import { C_Theme } from './C_Theme'
 
 export const C_NavigationMenuList = ({ menus = [] }) => {
   return (
     <S_Wrapper>
-      {menus.map((item) => (
-        <li key={item.title}>
-          <NavLink exact to={item.path}>
-            {item.title}
-          </NavLink>
-        </li>
-      ))}
+      <C_MenuList menus={menus} />
       <C_Theme />
     </S_Wrapper>
   )
