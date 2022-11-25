@@ -18,30 +18,35 @@ export const P_Routes = [
   {
     path: '/',
     page: P_Landing,
+    redirectPath: '/movies',
   },
   {
     path: '/register',
     page: P_Register,
+    redirectPath: '/movies',
   },
   {
     path: '/login',
     page: P_Login,
+    redirectPath: '/movies',
   },
   {
     path: '/logout',
     page: P_Logout,
+    permissions: moviesRead,
+    redirectPath: '/login',
   },
   {
     path: '/movies',
     page: P_Movies,
     permissions: moviesRead,
-    redirectPath: '/',
+    redirectPath: '/login',
   },
   {
     path: '/movies/:id',
     page: P_Movie,
     permissions: moviesRead,
-    redirectPath: '/',
+    redirectPath: '/login',
   },
   {
     path: '/new',
