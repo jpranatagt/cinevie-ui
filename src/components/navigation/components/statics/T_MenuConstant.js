@@ -18,10 +18,6 @@ export const T_MenuConstant = [
     permissions: moviesRead,
   },
   {
-    title: 'REGISTER',
-    path: '/register',
-  },
-  {
     title: 'LOGIN',
     path: '/login',
   },
