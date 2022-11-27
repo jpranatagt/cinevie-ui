@@ -26,5 +26,14 @@ export const U_IsArrayContains = (
   firstArray = [],
   secondArray = []
 ) => {
-  return !!firstArray.some((v) => secondArray.indexOf(v) !== -1)
+  if (Array.isArray(firstArray) && Array.isArray(secondArray)) {
+    return !!firstArray.some((v) => secondArray.indexOf(v) !== -1)
+  }
+
+  const firstConverted = Array.from(firstArray)
+  const secondConverted = Array.from(secondArray)
+
+  return !!firstConverted.some(
+    (v) => secondConverted.indexOf(v) !== -1
+  )
 }
