@@ -15,7 +15,11 @@ export const C_NavigationMenuToggle = (props) => {
 
   return (
     <S_Wrapper isOpened={isOpened}>
-      <C_MenuList menus={menus} handleMenu={handleMenu} />
+      <C_MenuList
+        menus={menus}
+        isMenuToggle
+        handleMenu={handleMenu}
+      />
       <C_Theme handleMenu={handleMenu} />
     </S_Wrapper>
   )

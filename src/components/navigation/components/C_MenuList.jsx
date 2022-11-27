@@ -3,12 +3,24 @@ import { NavLink } from 'react-router-dom'
 
 import { U_useIsPermitted, U_useIsAuthenticated } from '@utils'
 
-export const C_MenuList = ({ menus = [], handleMenu = () => {} }) => {
+export const C_MenuList = ({
+  menus = [],
+  isMenuToggle = false,
+  handleMenu = () => {},
+}) => {
   const ListElement = (menu) => (
     <li key={menu.title}>
-      <NavLink exact to={menu.path} onClick={() => handleMenu()}>
-        {menu.title}
-      </NavLink>
+      {isMenuToggle ? (
+        <h2>
+          <NavLink exact to={menu.path} onClick={() => handleMenu()}>
+            {menu.title}
+          </NavLink>
+        </h2>
+      ) : (
+        <NavLink exact to={menu.path} onClick={() => handleMenu()}>
+          {menu.title}
+        </NavLink>
+      )}
     </li>
   )
 
