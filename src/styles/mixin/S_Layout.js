@@ -3,7 +3,7 @@ import { css } from 'styled-components'
 import { S_Screen } from './S_Screen'
 
 export const S_Layout = css`
-  padding: var(--spaceY-sl) var(--spaceX-md);
+  padding: var(--spaceY-xxxl) var(--spaceX-md);
 
   ${S_Screen.md`
     padding: var(--spaceY-sl) var(--spaceX-xxl);

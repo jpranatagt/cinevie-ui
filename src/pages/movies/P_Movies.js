@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { S_Layout } from '@styles'
+import { S_Layout, S_Screen } from '@styles'
 
 import { U_useRequest } from '@utils'
 
@@ -57,26 +57,20 @@ const P_Movies = () => {
             </S_Cover>
             <S_Details>
               <h4>
-                {movie.title} ({movie.year})
+                <strong>{movie.title}</strong>
               </h4>
-              <S_RuntimeGenres>
+              <S_Time>
+                <span>{movie.year}</span>
                 <span>{movie.runtime} min</span>
-                <span> &#124; </span>
-                <S_Genres>
-                  {movie.genres.map((genre) => (
-                    <li key={genre}> {genre} </li>
-                  ))}
-                </S_Genres>
-              </S_RuntimeGenres>
-              <p>{movie.description}</p>
-              <S_Stars>
-                <span>Stars</span>
-                <span>
-                  {movie.stars.map((star) => (
-                    <h6 key={star}> &middot; {star} </h6>
-                  ))}
-                </span>
-              </S_Stars>
+              </S_Time>
+              <S_Genres>
+                {movie.genres.map((genre) => (
+                  <li key={genre}>
+                    {' '}
+                    <h6>{genre}</h6>{' '}
+                  </li>
+                ))}
+              </S_Genres>
             </S_Details>
           </S_Movie>
         ))}
@@ -89,37 +83,75 @@ export default P_Movies
 
 const S_Wrapper = styled.section`
   ${S_Layout}
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceY-lg);
+
+  ${S_Screen.md`
+    gap: var(--spaceY-xxl);
+  `}
 `
 
 const S_MoviesWrapper = styled.ul`
-  column-count: 2;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+  gap: var(--spaceY-xl);
 
-  list-style-type: none;
+  ${S_Screen.md`
+    flex-flow: row nowrap;
+    gap: 7%;
+  `}
 `
-const S_Movie = styled.li``
+const S_Movie = styled.li`
+  flex: 1 0 100%;
+
+  display: flex;
+  flex-flow: row nowrap;
+  gap: var(--spaceY-lg);
+
+  ${S_Screen.md`
+    flex: 1 0 24%;
+    flex-flow: column nowrap;
+  `}
+`
 
 const S_Cover = styled.picture`
+  flex: 0 0 30%;
+
   img {
     width: 100%;
   }
+
+  ${S_Screen.md`
+    flex: 0 0 50%;
+  `}
 `
 
-const S_Details = styled.article``
-
-const S_RuntimeGenres = styled.section`
+const S_Details = styled.article`
   display: flex;
-  flex-flow: row nowrap;
+  flex-direction: column;
+  gap: var(--spaceY-lg);
+  justify-content: center;
 
-  gap: 16px;
+  ${S_Screen.md`
+    align-content: start;
+  `}
+`
+
+const S_Time = styled.section`
+  display: flex;
+  gap: var(--spaceX-lg);
+
+  color: hsl(var(--primary-60));
 `
 
 const S_Genres = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spaceX-lg);
+
   text-transform: capitalize;
   list-style-type: none;
-`
-
-const S_Stars = styled(S_RuntimeGenres)`
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 24px;
 `
