@@ -1,16 +1,23 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 
-import { U_usePermissionsStore, U_IsArrayContains } from '@utils'
+import { U_useIsAuthenticated } from '@utils'
 
 export const PublicRoute = (props) => {
-  const {
-    children,
-    permissions,
-    page: Page,
-    redirectPath,
-    ...restProps
-  } = props
-  const { permissions: grantedPermissions } = U_usePermissionsStore()
-  return <Route {...restProps} render={() => <Page />} />
+  const { page: Page, redirectPath, ...restProps } = props
+
+  const isAuthenticated = U_useIsAuthenticated()
+
+  return (
+    <Route
+      {...restProps}
+      render={() => {
+        return !isAuthenticated ? (
+          <Page />
+        ) : (
+          <Redirect to={redirectPath} />
+        )
+      }}
+    />
+  )
 }

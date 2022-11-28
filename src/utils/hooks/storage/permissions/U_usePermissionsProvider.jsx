@@ -88,3 +88,34 @@ export const U_useIsAuthenticated = () => {
 
   return isAuthenticated
 }
+
+export const U_useLogoutPermissions = () => {
+  const LOGOUT_URL = '/tokens/logout'
+  const message = {
+    onDefault: 'LOGOUT',
+    onRequest: 'Logging out ...',
+    onSuccess: 'Logout succeed!',
+  }
+
+  const { state, U_useLogoutRequest } = U_useRequest(
+    LOGOUT_URL,
+    message
+  )
+  const { U_useRemovePermissions } = U_usePermissionsUpdate()
+
+  const { status } = state
+
+  const U_useLogout = () => {
+    U_useLogoutRequest()
+  }
+
+  const isLoggedOut = status === message.onSuccess
+
+  React.useEffect(() => {
+    if (isLoggedOut) {
+      setTimeout(() => U_useRemovePermissions(), 3000)
+    }
+  }, [status])
+
+  return { status, U_useLogout }
+}

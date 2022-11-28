@@ -107,7 +107,7 @@ export const U_useRequest = (url, requestMessage = {}) => {
     U_useGetAuthRequest()
   }
 
-  const U_useLogout = () => {
+  const U_useLogoutRequest = () => {
     U_usePostAuthRequest()
   }
 
@@ -120,7 +120,7 @@ export const U_useRequest = (url, requestMessage = {}) => {
     U_usePostAuthRequest,
     U_usePatchAuthRequest,
     U_usePermissionsCheck,
-    U_useLogout,
+    U_useLogoutRequest,
   }
 
   return requestHandler
