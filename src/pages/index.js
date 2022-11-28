@@ -3,7 +3,6 @@ import { lazy } from 'react'
 const P_Landing = lazy(() => import('./landing'))
 const P_Register = lazy(() => import('./register'))
 const P_Login = lazy(() => import('./login'))
-const P_Logout = lazy(() => import('./logout'))
 const P_Movies = lazy(() => import('./movies'))
 const P_Movie = lazy(() => import('./movie'))
 const P_New = lazy(() => import('./new'))
@@ -29,12 +28,6 @@ export const P_Routes = [
     path: '/login',
     page: P_Login,
     redirectPath: '/movies',
-  },
-  {
-    path: '/logout',
-    page: P_Logout,
-    permissions: moviesRead,
-    redirectPath: '/',
   },
   {
     path: '/movies',

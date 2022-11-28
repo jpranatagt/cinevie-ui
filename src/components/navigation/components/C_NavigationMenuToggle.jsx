@@ -3,6 +3,8 @@ import styled from 'styled-components'
 
 import { S_Screen } from '@styles'
 
+import { U_useIsAuthenticated, U_useLogoutPermissions } from '@utils'
+
 import { C_MenuList } from './C_MenuList'
 import { C_Theme } from './C_Theme'
 
@@ -13,6 +15,9 @@ export const C_NavigationMenuToggle = (props) => {
     menus = [],
   } = props
 
+  const isAuthenticated = () => U_useIsAuthenticated()
+  const { status, U_useLogout } = U_useLogoutPermissions()
+
   return (
     <S_Wrapper isOpened={isOpened}>
       <C_MenuList
@@ -20,6 +25,13 @@ export const C_NavigationMenuToggle = (props) => {
         isMenuToggle
         handleMenu={handleMenu}
       />
+      {isAuthenticated() && (
+        <li onClick={() => U_useLogout()}>
+          <h2>
+            <a href="#logout">LOGOUT</a>
+          </h2>
+        </li>
+      )}
       <C_Theme handleMenu={handleMenu} />
     </S_Wrapper>
   )

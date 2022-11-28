@@ -13,11 +13,6 @@ export const T_MenuConstant = [
     permissions: moviesWrite,
   },
   {
-    title: 'LOGOUT',
-    path: '/logout',
-    permissions: moviesRead,
-  },
-  {
     title: 'LOGIN',
     path: '/login',
   },
