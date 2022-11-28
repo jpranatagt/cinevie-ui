@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { S_Layout } from '@styles'
+import { S_Layout, S_Screen } from '@styles'
 
 import { U_useRequest } from '@utils'
 
@@ -41,35 +41,32 @@ const P_Movie = () => {
 
   return (
     <S_Wrapper>
-      <h1>{movie.title}</h1>
-      <p>
+      <h3>{movie.title}</h3>
+      <S_Time>
         <span> {movie.year} </span>
         <span> &middot; </span>
         <span>{convertMinuteToHour(movie.runtime)}</span>
-      </p>
+      </S_Time>
       <S_Media>
         <li>
           <img src={movie.cover} alt="movie cover" />
         </li>
         <li>
-          <iframe height="315" src={movie.trailer} />
+          <iframe src={movie.trailer} />
         </li>
       </S_Media>
       <S_Genres>
         {movie.genres.map((genre) => (
-          <span key={genre}> &middot; {genre} </span>
+          <h6 key={genre}>
+            <strong> {genre} </strong>
+          </h6>
         ))}
       </S_Genres>
       <p>{movie.description}</p>
       <S_Stars>
-        <span>
-          <strong> Stars </strong>
-        </span>
-        <span>
-          {movie.stars.map((star) => (
-            <span key={star}> &middot; {star} </span>
-          ))}
-        </span>
+        {movie.stars.map((star) => (
+          <h6 key={star}>{star}</h6>
+        ))}
       </S_Stars>
     </S_Wrapper>
   )
@@ -79,36 +76,61 @@ export default P_Movie
 
 const S_Wrapper = styled.section`
   ${S_Layout}
+
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--spaceY-lg);
+`
+
+const S_Time = styled.p`
+  color: hsl(var(--primary-60));
 `
 
 const S_Media = styled.ul`
-  --gap: 32px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  gap: var(--spaceY-xl);
 
-  column-count: 2;
-  column-gap: var(--gap);
+  ${S_Screen.md`
+    flex-flow: row nowrap;
+  `}
 
-  list-style-type: none;
+  li:first-child {
+    flex: 0 0 100%;
 
-  li {
-    page-break-inside: avoid;
-    break-inside: avoid;
+    ${S_Screen.md`
+      flex: 0 0 30%;
+    `}
+  }
 
-    img {
-      width: 100%;
-    }
+  li:last-child {
+    flex: 0 0 100%;
+    ${S_Screen.md`
+      flex: 0 0 68%;
+    `}
+  }
 
-    iframe {
-      width: 100%;
-    }
+  img {
+    width: 100%;
+  }
+
+  iframe {
+    height: 100%;
+    width: 100%;
   }
 `
 
 const S_Genres = styled.p`
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spaceX-lg);
+
   text-transform: capitalize;
 `
 
 const S_Stars = styled(S_Genres)`
   display: flex;
-  flex-flow: row nowrap;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: var(--spaceX-lg);
 `
