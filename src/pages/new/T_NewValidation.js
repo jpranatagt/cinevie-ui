@@ -2,7 +2,7 @@ import {
   U_IsLengthLess,
   U_IsURLValid,
   U_IsLessThan,
-  U_IsBetweenOf,
+  U_IsMoreThan,
 } from '@utils'
 
 export const T_NewValidation = {
@@ -23,12 +23,7 @@ export const T_NewValidation = {
     message: 'Trailer url is not accepted',
   },
   year: {
-    isError: (year) =>
-      U_IsBetweenOf(
-        year,
-        1888,
-        parseInt(new Date().getFullYear()) + 1
-      ),
+    isError: (year) => U_IsMoreThan(year),
     message: 'Release year must be greater than 1888',
   },
   runtime: {

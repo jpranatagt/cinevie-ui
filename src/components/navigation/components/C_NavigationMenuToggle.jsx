@@ -28,7 +28,7 @@ export const C_NavigationMenuToggle = (props) => {
       {isAuthenticated() && (
         <li onClick={() => U_useLogout()}>
           <h2>
-            <a href="#logout">LOGOUT</a>
+            <a href="#logout">{status}</a>
           </h2>
         </li>
       )}

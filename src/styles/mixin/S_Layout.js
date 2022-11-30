@@ -10,6 +10,6 @@ export const S_Layout = css`
   `}
 
   ${S_Screen.xl`
-    padding: var(--spaceY-ssl) var(--spaceX-sl);
+    padding: var(--spaceY-sl) var(--spaceX-sl);
   `}
 `

@@ -20,7 +20,7 @@ export const U_useRequest = (url, requestMessage = {}) => {
     requestMessage
   )
 
-  const { GET, POST, PATCH } = T_RequestMethod
+  const { GET, POST, PATCH, DELETE } = T_RequestMethod
 
   const request = new XMLHttpRequest()
 
@@ -103,6 +103,10 @@ export const U_useRequest = (url, requestMessage = {}) => {
     U_useAuthStateRequest(PATCH, data)
   }
 
+  const U_useDeleteAuthRequest = () => {
+    U_useAuthStateRequest(DELETE)
+  }
+
   const U_usePermissionsCheck = () => {
     U_useGetAuthRequest()
   }
@@ -119,6 +123,7 @@ export const U_useRequest = (url, requestMessage = {}) => {
     U_usePostRequest,
     U_usePostAuthRequest,
     U_usePatchAuthRequest,
+    U_useDeleteAuthRequest,
     U_usePermissionsCheck,
     U_useLogoutRequest,
   }

@@ -16,11 +16,6 @@ export const U_IsLessThan = (value, target) =>
 export const U_IsMoreThan = (value, target) =>
   value > target && !U_IsEmpty(value)
 
-export const U_IsBetweenOf = (value, moreThan, lessThan) =>
-  U_IsLessThan(value, lessThan) &&
-  U_IsMoreThan(value, moreThan) &&
-  !U_IsEmpty(value)
-
 export const U_IsEmailValid = (address) => {
   const pattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
 

@@ -69,4 +69,8 @@ export default P_Update
 
 const S_Wrapper = styled.section`
   ${S_Layout}
+
+  display: flex;
+  flex-flow: column nowrap;
+  gap: var(--spaceY-xxl);
 `

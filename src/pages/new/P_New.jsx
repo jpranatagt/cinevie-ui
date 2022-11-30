@@ -54,4 +54,8 @@ export default P_New
 
 const S_Wrapper = styled.section`
   ${S_Layout}
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--spaceY-xxl);
 `

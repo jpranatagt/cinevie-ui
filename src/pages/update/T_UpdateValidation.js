@@ -2,7 +2,7 @@ import {
   U_IsLengthLess,
   U_IsURLValid,
   U_IsLessThan,
-  U_IsBetweenOf,
+  U_IsMoreThan,
 } from '@utils'
 
 export const T_UpdateValidation = {
@@ -24,11 +24,7 @@ export const T_UpdateValidation = {
   },
   year: {
     isError: (year) =>
-      U_IsBetweenOf(
-        year,
-        1888,
-        parseInt(new Date().getFullYear()) + 1
-      ),
+      U_MoreThan(year, 1888, parseInt(new Date().getFullYear()) + 1),
     message: 'Release year must be greater than 1888',
   },
   runtime: {
