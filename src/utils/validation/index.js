@@ -1,13 +1,25 @@
-export const U_IsEmpty = (value) => value.length === 0
+export const U_IsEmpty = (value) => {
+  console.log(value)
+  return (
+    value.length === 0 &&
+    value === '' &&
+    value.replace(/^\s+|\s+$/gm, '') === ''
+  )
+}
 
-export const U_IsLengthLess = (value, length) => value.length < length
+export const U_IsLengthLess = (value, length) =>
+  value.length < length && !U_IsEmpty(value)
 
-export const U_IsLessThan = (value, target) => value < target
+export const U_IsLessThan = (value, target) =>
+  value < target && !U_IsEmpty(value)
 
-export const U_IsMoreThan = (value, target) => value > target
+export const U_IsMoreThan = (value, target) =>
+  value > target && !U_IsEmpty(value)
 
 export const U_IsBetweenOf = (value, moreThan, lessThan) =>
-  U_IsLessThan(value, lessThan) && U_IsMoreThan(value, moreThan)
+  U_IsLessThan(value, lessThan) &&
+  U_IsMoreThan(value, moreThan) &&
+  !U_IsEmpty(value)
 
 export const U_IsEmailValid = (address) => {
   const pattern = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/

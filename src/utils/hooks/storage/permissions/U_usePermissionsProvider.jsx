@@ -93,8 +93,8 @@ export const U_useLogoutPermissions = () => {
   const LOGOUT_URL = '/tokens/logout'
   const message = {
     onDefault: 'LOGOUT',
-    onRequest: 'Logging out ...',
-    onSuccess: 'Logout succeed!',
+    onRequest: 'LOGGING OUT',
+    onSuccess: 'LOGOUT SUCCESS',
   }
 
   const { state, U_useLogoutRequest } = U_useRequest(

@@ -20,6 +20,11 @@ export const U_RequestReducer = (state, action) => {
         loading: false,
         status: action.payload.status,
       }
+    case T_RequestAction.RESET:
+      return {
+        ...state,
+        status: action.payload.status,
+      }
     case T_RequestAction.UPDATE:
       return { ...state, data: action.payload.data }
     case T_RequestAction.REFETCH:

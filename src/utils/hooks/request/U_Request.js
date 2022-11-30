@@ -45,6 +45,13 @@ export const U_Request = (params) => {
             status: message.onSuccess,
           },
         })
+
+        dispatch({
+          type: T_RequestAction.RESET,
+          payload: {
+            status: message.onDefault,
+          },
+        })
       }
     } else {
       if (!didCancel) {
