@@ -2,7 +2,6 @@ import React from 'react'
 
 import {
   U_useDisableBodyScroll,
-  U_useOnClickOutside,
   U_useThemeContextProvider,
 } from '@utils'
 import { T_HamburgerIcon, T_MenuConstant } from './statics'
@@ -19,15 +18,10 @@ export const C_NavigationMenu = () => {
   }
 
   U_useDisableBodyScroll(opened)
-  U_useOnClickOutside(toggleMenuRef, () => setOpened(false))
 
   return (
     <nav ref={toggleMenuRef}>
-      <T_HamburgerIcon
-        toggleMenuRef={toggleMenuRef}
-        isOpened={opened}
-        handleMenu={handleMenu}
-      />
+      <T_HamburgerIcon isOpened={opened} handleMenu={handleMenu} />
       <U_useThemeContextProvider>
         <C_NavigationMenuList menus={T_MenuConstant} />
         <C_NavigationMenuToggle

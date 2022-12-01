@@ -1,6 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { S_Screen } from '@styles'
+
+import { U_useDisableBodyScroll } from '@utils'
+
 export const U_useModalDialog = () => {
   const [toggled, setToggled] = React.useState(false)
 
@@ -16,6 +20,8 @@ export const U_useModalDialog = () => {
       proceedTitle = 'PROCEED',
       handleProceed = () => {},
     } = props
+
+    U_useDisableBodyScroll(toggled)
 
     return (
       <S_Wrapper isToggled={toggled}>
@@ -55,7 +61,7 @@ const S_Wrapper = styled.section`
 
 const S_ModalWrapper = styled.article`
   position: relative;
-  top: 30%;
+  top: 40%;
   left: 50%;
   padding: var(--spaceX-lg);
 
@@ -63,11 +69,20 @@ const S_ModalWrapper = styled.article`
   flex-direction: column;
   gap: var(--spaceY-xl);
 
-  max-width: 50%;
+  max-width: 80%;
 
   background-color: hsla(var(--primary-5), 0.85);
 
-  transform: translate(-50%, -30%);
+  transform: translate(-50%, -40%);
+
+  ${S_Screen.md`
+    top: 30%;
+    left: 50%;
+    padding: var(--spaceX-lg);
+    transform: translate(-50%, -30%);
+
+    max-width: 50%;
+  `}
 `
 
 const S_Title = styled.h4``

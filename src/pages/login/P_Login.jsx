@@ -64,6 +64,8 @@ export default P_Login
 const S_Wrapper = styled.section`
   ${S_Layout}
 
+  margin-top: var(--spaceY-xxl);
+
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;

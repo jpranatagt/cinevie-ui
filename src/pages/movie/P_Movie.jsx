@@ -165,7 +165,7 @@ const S_Stars = styled(S_Genres)`
 const S_Actions = styled.section`
   display: flex;
   justify-content: end;
-  gap: var(--spaceX-xxl);
+  gap: var(--spaceX-xl);
 
   a {
     ${S_BorderBottomAnimation}
