@@ -11,10 +11,6 @@ export const C_Logout = ({ isMenuToggle = false }) => {
   const [U_useToggleLogoutModalDialog, C_LogoutModalDialog] =
     U_useModalDialog()
 
-  if (status === 'LOGOUT SUCCESS') {
-    setTimeout(() => U_useToggleLogoutModalDialog(), 3000)
-  }
-
   return isAuthenticated() ? (
     <li onClick={() => U_useToggleLogoutModalDialog()}>
       {isMenuToggle ? (

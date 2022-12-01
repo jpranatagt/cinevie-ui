@@ -73,6 +73,7 @@ export const U_usePermissionsProvider = ({ children }) => {
 
 export const U_useIsPermitted = (requiredPermissions = []) => {
   const { permissions } = U_usePermissionsStore()
+  console.log(permissions)
   const isPermitted = U_IsArrayContains(
     permissions,
     requiredPermissions

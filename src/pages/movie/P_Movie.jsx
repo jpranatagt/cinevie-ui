@@ -1,29 +1,20 @@
 import React from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import { S_Layout, S_Screen, S_BorderBottomAnimation } from '@styles'
+import { S_Layout, S_Screen } from '@styles'
 
-import { U_useRequest, U_useModalDialog } from '@utils'
+import { U_useRequest } from '@utils'
+
+import { C_Actions } from './C_Actions'
 
 const P_Movie = () => {
   const { id } = useParams()
-  const [U_useToggleDeleteModalDialog, C_DeleteModalDialog] =
-    U_useModalDialog()
   const MOVIE_URL = `/movies/${id}`
-
-  const message = {
-    onDefault: 'DELETE',
-    onRequest: 'DELETING',
-    onSuccess: 'DELETED',
-  }
 
   const { state: movieRequestState, U_useGetAuthRequest } =
     U_useRequest(MOVIE_URL)
-  const { state: deleteRequestState, U_useDeleteAuthRequest } =
-    U_useRequest(MOVIE_URL, message)
   const { loading, error, data, status } = movieRequestState
-  const { status: deleteStatus } = deleteRequestState
 
   U_useGetAuthRequest()
 
@@ -81,20 +72,7 @@ const P_Movie = () => {
           <h6 key={star}>{star}</h6>
         ))}
       </S_Stars>
-      <S_Actions>
-        <Link to={`/update/${id}`}> UPDATE </Link>
-        <S_ButtonDelete
-          onClick={() => U_useToggleDeleteModalDialog()}
-        >
-          DELETE
-        </S_ButtonDelete>
-        <C_DeleteModalDialog
-          title="DELETE MOVIE"
-          proceedTitle={deleteStatus}
-          description={`Are you sure you want to delete '${movie.title}' movie?`}
-          handleProceed={() => U_useDeleteAuthRequest()}
-        />
-      </S_Actions>
+      <C_Actions movieId={id} movieTitle={movie.title} />
     </S_Wrapper>
   )
 }
@@ -160,27 +138,4 @@ const S_Stars = styled(S_Genres)`
   display: flex;
   flex-wrap: wrap;
   gap: var(--spaceX-lg);
-`
-
-const S_Actions = styled.section`
-  display: flex;
-  justify-content: end;
-  gap: var(--spaceX-xl);
-
-  a {
-    ${S_BorderBottomAnimation}
-  }
-`
-
-const S_ButtonDelete = styled.button`
-  --color: hsl(var(--primary-90));
-
-  background-color: var(--color);
-  border-color: var(--color);
-  border-style: solid;
-  color: hsl(var(--primary-background));
-
-  font-size: var(--spaceY-md);
-
-  cursor: pointer;
 `
