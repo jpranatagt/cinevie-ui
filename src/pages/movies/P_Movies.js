@@ -7,17 +7,19 @@ import { S_Layout, S_Screen } from '@styles'
 import { U_useRequest } from '@utils'
 
 import { C_ImageRenderer } from '@components'
+import { C_PaginateNavigation } from './C_PaginateNavigation'
 
 const P_Movies = () => {
   const MOVIES_URL = '/movies'
+  const [dynamicURL, setDynamicURL] = React.useState(MOVIES_URL)
   const message = {
     onDefault: 'Movie List',
     onRequest: 'Loading movie list',
     onSuccess: 'Movie List',
   }
 
-  const { state, U_useGetAuthRequest } = U_useRequest(
-    MOVIES_URL,
+  const { dispatch, state, U_useGetAuthRequest } = U_useRequest(
+    dynamicURL,
     message
   )
   const { loading, error, data, status } = state
@@ -40,6 +42,11 @@ const P_Movies = () => {
   }
 
   const { metadata, movies } = data
+  const paginationProps = {
+    dispatch,
+    setDynamicURL,
+    ...metadata,
+  }
 
   return (
     <S_Wrapper>
@@ -66,8 +73,7 @@ const P_Movies = () => {
               <S_Genres>
                 {movie.genres.map((genre) => (
                   <li key={genre}>
-                    {' '}
-                    <h6>{genre}</h6>{' '}
+                    <h6>{genre}</h6>
                   </li>
                 ))}
               </S_Genres>
@@ -75,6 +81,7 @@ const P_Movies = () => {
           </S_Movie>
         ))}
       </S_MoviesWrapper>
+      <C_PaginateNavigation {...paginationProps} />
     </S_Wrapper>
   )
 }
@@ -94,14 +101,16 @@ const S_Wrapper = styled.section`
 `
 
 const S_MoviesWrapper = styled.ul`
+  --row-gap: 8%;
+
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
   gap: var(--spaceY-xl);
 
   ${S_Screen.md`
-    flex-flow: row nowrap;
-    gap: 7%;
+    flex-flow: row wrap;
+    gap: var(--row-gap);
   `}
 `
 const S_Movie = styled.li`
@@ -112,8 +121,9 @@ const S_Movie = styled.li`
   gap: var(--spaceY-lg);
 
   ${S_Screen.md`
-    flex: 1 0 24%;
+    flex: 1 1 24%;
     flex-flow: column nowrap;
+    margin-bottom: var(--row-gap);
   `}
 `
 
@@ -134,6 +144,8 @@ const S_Details = styled.article`
   flex-direction: column;
   gap: var(--spaceY-lg);
   justify-content: center;
+
+  word-wrap: break-word;
 
   ${S_Screen.md`
     align-content: start;
