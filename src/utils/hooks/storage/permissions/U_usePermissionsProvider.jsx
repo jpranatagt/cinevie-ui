@@ -1,6 +1,55 @@
 import React from 'react'
 
-import { U_useRequest, U_IsArrayContains } from '@utils'
+import { U_useRequest } from '@utils'
+
+const isPermissionsValid = (
+  grantedPermissions,
+  requiredPermissions
+) => {
+  const movieRead = 'movies:read'
+  const movieWrite = 'movies:write'
+  if (
+    Array.isArray(grantedPermissions) &&
+    Array.isArray(requiredPermissions)
+  ) {
+    const requiredPermissionsLength = requiredPermissions.length
+
+    const isRead =
+      requiredPermissionsLength === 1 &&
+      requiredPermissions[0] === movieRead &&
+      grantedPermissions[0] === movieRead
+    const isWrite =
+      requiredPermissionsLength === 2 &&
+      requiredPermissions[0] === movieRead &&
+      grantedPermissions[0] === movieRead &&
+      requiredPermissions[1] === movieWrite &&
+      grantedPermissions[1] === movieWrite
+
+    const isValid = isRead || isWrite
+
+    return isValid
+  }
+
+  const convertedGranted = Array.from(grantedPermissions)
+  const convertedRequired = Array.from(requiredPermissions)
+
+  const convertedRequiredLength = convertedRequired.length
+
+  const isRead =
+    convertedRequiredLength === 1 &&
+    convertedRequired[0] === movieRead &&
+    convertedGranted[0] === movieRead
+
+  const isWrite =
+    convertedRequiredLength === 2 &&
+    convertedRequired[0] === movieRead &&
+    convertedRequired[1] === movieWrite &&
+    convertedGranted[1] === movieWrite
+
+  const isValid = isRead || isWrite
+
+  return isValid
+}
 
 const permissionsStoreContext = React.createContext()
 
@@ -73,8 +122,7 @@ export const U_usePermissionsProvider = ({ children }) => {
 
 export const U_useIsPermitted = (requiredPermissions = []) => {
   const { permissions } = U_usePermissionsStore()
-  console.log(permissions)
-  const isPermitted = U_IsArrayContains(
+  const isPermitted = isPermissionsValid(
     permissions,
     requiredPermissions
   )
@@ -85,7 +133,7 @@ export const U_useIsPermitted = (requiredPermissions = []) => {
 export const U_useIsAuthenticated = () => {
   const { permissions } = U_usePermissionsStore()
   const moviesRead = ['movies:read']
-  const isAuthenticated = U_IsArrayContains(permissions, moviesRead)
+  const isAuthenticated = isPermissionsValid(permissions, moviesRead)
 
   return isAuthenticated
 }

@@ -1,11 +1,7 @@
-export const U_IsEmpty = (value) => {
-  console.log(value)
-  return (
-    value.length === 0 &&
-    value === '' &&
-    value.replace(/^\s+|\s+$/gm, '') === ''
-  )
-}
+export const U_IsEmpty = (value) =>
+  value.length === 0 &&
+  value === '' &&
+  value.replace(/^\s+|\s+$/gm, '') === ''
 
 export const U_IsLengthLess = (value, length) =>
   value.length < length && !U_IsEmpty(value)
