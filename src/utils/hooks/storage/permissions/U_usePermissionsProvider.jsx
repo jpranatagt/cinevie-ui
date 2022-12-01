@@ -8,16 +8,26 @@ const isPermissionsValid = (
 ) => {
   const movieRead = 'movies:read'
   const movieWrite = 'movies:write'
+
+  if (!grantedPermissions) {
+    return false
+  }
+
   if (
     Array.isArray(grantedPermissions) &&
     Array.isArray(requiredPermissions)
   ) {
+    if (grantedPermissions.length === 0) {
+      return false
+    }
+
     const requiredPermissionsLength = requiredPermissions.length
 
     const isRead =
       requiredPermissionsLength === 1 &&
       requiredPermissions[0] === movieRead &&
       grantedPermissions[0] === movieRead
+
     const isWrite =
       requiredPermissionsLength === 2 &&
       requiredPermissions[0] === movieRead &&
