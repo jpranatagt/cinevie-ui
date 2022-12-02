@@ -22,11 +22,13 @@ export const U_Request = (params) => {
 
   // client error (network failure or browser CORS problem)
   request.onerror = () => {
+    const statusCode = request.status
     if (!didCancel) {
       dispatch({
         type: T_RequestAction.ERROR,
         payload: {
           status: CLIENT_ERROR,
+          code: statusCode,
         },
       })
     }
@@ -43,6 +45,7 @@ export const U_Request = (params) => {
           payload: {
             data: responseInJSON,
             status: message.onSuccess,
+            code: statusCode,
           },
         })
 
@@ -59,6 +62,7 @@ export const U_Request = (params) => {
           type: T_RequestAction.ERROR,
           payload: {
             status: JSON.stringify(responseInJSON.error),
+            code: statusCode,
           },
         })
       }

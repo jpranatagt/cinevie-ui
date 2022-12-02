@@ -6,7 +6,7 @@ import { S_Layout, S_Screen } from '@styles'
 
 import { U_useRequest } from '@utils'
 
-import { C_ImageRenderer } from '@components'
+import { C_Error, C_Head, C_ImageRenderer } from '@components'
 import { C_PaginateNavigation } from './C_PaginateNavigation'
 
 const P_Movies = () => {
@@ -22,7 +22,7 @@ const P_Movies = () => {
     dynamicURL,
     message
   )
-  const { loading, error, data, status } = state
+  const { loading, error, data, status, code } = state
   U_useGetAuthRequest()
 
   if (loading) {
@@ -34,22 +34,27 @@ const P_Movies = () => {
   }
 
   if (error) {
-    return (
-      <S_Wrapper>
-        <h3> {status} </h3>
-      </S_Wrapper>
-    )
+    const error = {
+      statusCode: code,
+      message: status,
+    }
+    return <C_Error {...error} />
   }
 
   const { metadata, movies } = data
   const paginationProps = {
     dispatch,
+    dynamicURL,
     setDynamicURL,
     ...metadata,
   }
 
   return (
     <S_Wrapper>
+      <C_Head
+        title="Movie List"
+        description="List of CinevVie movies"
+      />
       <h3>{status}</h3>
       <S_MoviesWrapper>
         {movies.map((movie) => (

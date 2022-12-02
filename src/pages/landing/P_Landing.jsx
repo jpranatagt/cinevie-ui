@@ -3,11 +3,13 @@ import styled from 'styled-components'
 
 import { S_Layout, S_Screen } from '@styles'
 
+import { C_Head } from '@components'
 import { C_Tagline, C_MoviesCover } from './components'
 
 const P_Landing = () => {
   return (
     <S_Wrapper>
+      <C_Head title='Discover your movies information' description='A comprehensive movie information website' />
       <C_Tagline />
       <C_MoviesCover />
     </S_Wrapper>

@@ -7,6 +7,7 @@ const P_Movies = lazy(() => import('./movies'))
 const P_Movie = lazy(() => import('./movie'))
 const P_New = lazy(() => import('./new'))
 const P_Update = lazy(() => import('./update'))
+const P_NotFound = lazy(() => import('./not-found'))
 
 export { P_Suspense } from './suspense'
 
@@ -52,5 +53,9 @@ export const P_Routes = [
     page: P_Update,
     permissions: moviesWrite,
     redirectPath: '/movies',
+  },
+  {
+    path: '*',
+    page: P_NotFound,
   },
 ]

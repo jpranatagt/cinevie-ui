@@ -8,7 +8,7 @@ import { U_useRequest } from '@utils'
 import { T_RegisterModel } from './T_RegisterModel'
 import { T_RegisterValidation } from './T_RegisterValidation'
 
-import { C_Form } from '@components'
+import { C_Head, C_Form } from '@components'
 
 import { C_Guidance } from './C_Guidance'
 
@@ -50,6 +50,10 @@ const P_Register = () => {
 
   return (
     <S_Wrapper>
+      <C_Head
+        title="Register"
+        description="Register to explore millions of movies"
+      />
       <C_Guidance />
       <C_Form {...formProperties} />
     </S_Wrapper>

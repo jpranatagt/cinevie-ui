@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { T_NewModel } from './T_NewModel'
@@ -8,7 +9,7 @@ import { S_Layout } from '@styles'
 
 import { U_useRequest } from '@utils'
 
-import { C_Form } from '@components'
+import { C_Head, C_Form } from '@components'
 
 const P_New = () => {
   const initialState = {
@@ -36,8 +37,19 @@ const P_New = () => {
 
   const { status } = state
 
+  const history = useHistory()
+  React.useEffect(() => {
+    if (status === message.onSuccess) {
+      setTimeout(() => history.push('/movies'), 3000)
+    }
+  }, [status])
+
   return (
     <S_Wrapper>
+      <C_Head
+        title="Add New Movie"
+        description="Adding new movie information into CineVie database"
+      />
       <h3>Add a new movie</h3>
       <C_Form
         model={T_NewModel}

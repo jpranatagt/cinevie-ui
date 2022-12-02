@@ -6,15 +6,16 @@ import { S_Layout, S_Screen } from '@styles'
 
 import { U_useRequest } from '@utils'
 
+import { C_Error, C_Head } from '@components'
+
 import { C_Actions } from './C_Actions'
 
 const P_Movie = () => {
   const { id } = useParams()
   const MOVIE_URL = `/movies/${id}`
 
-  const { state: movieRequestState, U_useGetAuthRequest } =
-    U_useRequest(MOVIE_URL)
-  const { loading, error, data, status } = movieRequestState
+  const { state, U_useGetAuthRequest } = U_useRequest(MOVIE_URL)
+  const { loading, error, data, status, code } = state
 
   U_useGetAuthRequest()
 
@@ -27,11 +28,11 @@ const P_Movie = () => {
   }
 
   if (error) {
-    return (
-      <S_Wrapper>
-        <p>{JSON.stringify(status)} </p>
-      </S_Wrapper>
-    )
+    const error = {
+      statusCode: code,
+      message: status,
+    }
+    return <C_Error {...error} />
   }
 
   const { movie } = data
@@ -45,6 +46,7 @@ const P_Movie = () => {
 
   return (
     <S_Wrapper>
+      <C_Head title={movie.title} description={movie.description} />
       <h3>{movie.title}</h3>
       <S_Time>
         <span> {movie.year} </span>

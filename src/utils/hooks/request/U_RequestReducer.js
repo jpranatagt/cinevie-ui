@@ -12,6 +12,7 @@ export const U_RequestReducer = (state, action) => {
         error: true,
         loading: false,
         status: action.payload.status,
+        code: action.payload.code,
       }
     case T_RequestAction.SUCCESS:
       return {
@@ -19,6 +20,7 @@ export const U_RequestReducer = (state, action) => {
         data: action.payload.data,
         loading: false,
         status: action.payload.status,
+        code: action.payload.code,
       }
     case T_RequestAction.RESET:
       return {

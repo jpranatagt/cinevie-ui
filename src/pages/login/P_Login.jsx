@@ -8,7 +8,7 @@ import { U_useRequest, U_usePermissionsUpdate } from '@utils'
 import { T_LoginModel } from './T_LoginModel'
 import { T_LoginValidation } from './T_LoginValidation'
 
-import { C_Form } from '@components'
+import { C_Head, C_Form } from '@components'
 
 import { C_Guidance } from './C_Guidance'
 
@@ -53,6 +53,7 @@ const P_Login = () => {
 
   return (
     <S_Wrapper>
+      <C_Head title="Login" description="Welcome back cinemasters!" />
       <C_Guidance />
       <C_Form {...formProperties} />
     </S_Wrapper>

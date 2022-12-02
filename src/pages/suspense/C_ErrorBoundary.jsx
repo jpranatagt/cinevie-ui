@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { C_Error } from '@components'
+
 class C_ErrorBoundary extends React.Component {
   constructor() {
     super()
@@ -23,7 +25,10 @@ class C_ErrorBoundary extends React.Component {
 
   render() {
     return this.state.hasErrored ? (
-      <h3>Ups something went wrong.</h3>
+      <C_Error
+        statusCode="500"
+        message="Ups something went wrong please come back later."
+      />
     ) : (
       this.props.children
     )

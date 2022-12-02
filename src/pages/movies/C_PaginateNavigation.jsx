@@ -4,9 +4,9 @@ import styled from 'styled-components'
 import { S_Screen } from '@styles'
 
 export const C_PaginateNavigation = (props) => {
-  console.log(props)
   const {
     dispatch,
+    dynamicURL,
     setDynamicURL,
     current_page,
     first_page,
@@ -28,6 +28,15 @@ export const C_PaginateNavigation = (props) => {
 
   const changePage = (pageNumber) => {
     const URL = `${ENDPOINT}=${pageNumber}`
+    refetch(URL)
+  }
+
+  const changeSortOrder = (currentURL, sortBy) => {
+    const hasPageNumber = currentURL.indexOf(ENDPOINT)
+    const URL = hasPageNumber
+      ? `${currentURL}&sort=${sortBy}`
+      : `${currentURL}?sort=${sortBy}`
+
     refetch(URL)
   }
 
@@ -65,6 +74,10 @@ export const C_PaginateNavigation = (props) => {
 
     return isInBoundary
   }
+
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+  }, [dynamicURL])
 
   return (
     <S_Wrapper>

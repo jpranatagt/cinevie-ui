@@ -19,7 +19,7 @@ production/setup:
 ## production/configure/cinevie.service: configure the production systemd cinevie.service file
 .PHONY: production/configure/cinevie.service
 production/configure/cinevie.service:
-	rsync -rP --delete ./build ${production_username}@${production_host_ip}:~
+	rsync -rP --delete ./build ${production_username}@${production_host_ip}:~/ui
 	rsync -P ./remote/production/cinevie.service ${production_username}@${production_host_ip}:~
 	ssh -t ${production_username}@${production_host_ip} '\
 		sudo mv ~/cinevie.service /etc/systemd/system/ \

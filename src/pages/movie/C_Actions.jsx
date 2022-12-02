@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { S_BorderBottomAnimation } from '@styles'
@@ -28,6 +28,16 @@ export const C_Actions = ({ movieId, movieTitle }) => {
   const { status } = state
 
   const isPermitted = (permissions) => U_useIsPermitted(permissions)
+
+  const history = useHistory()
+  React.useEffect(() => {
+    if (status === message.onSuccess) {
+      setTimeout(() => {
+        U_useToggleDeleteModalDialog()
+        history.push('/movies')
+      }, 3000)
+    }
+  }, [status])
 
   return isPermitted(writePermissions) ? (
     <S_Wrapper>

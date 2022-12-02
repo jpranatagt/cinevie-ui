@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { S_Layout } from '@styles'
@@ -24,6 +24,13 @@ const P_Update = () => {
     U_useRequest(MOVIE_URL, message)
   const { loading, error, data, status } = state
   U_useGetAuthRequest()
+
+  const history = useHistory()
+  React.useEffect(() => {
+    if (status === message.onSuccess) {
+      setTimeout(() => history.push('/movies'), 3000)
+    }
+  }, [status])
 
   if (loading) {
     return (

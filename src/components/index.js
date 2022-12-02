@@ -1,3 +1,5 @@
+export * from './head'
 export * from './navigation'
 export * from './form'
 export * from './image-renderer'
+export * from './error-info'
