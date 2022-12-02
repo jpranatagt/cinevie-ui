@@ -1,6 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const HtmlTemplate = require('./html.template')
 
@@ -40,13 +40,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       templateContent: HtmlTemplate,
     }),
-    /* new CopyWebpackPlugin({
+    new CopyWebpackPlugin({
       patterns: [
         {
           from: '*',
-          context: path.resolve(__dirname, '../src/statics/public'),
+          context: path.resolve(__dirname, '../src/statics/root'),
         },
       ],
-    }), */
+    }),
   ],
 }

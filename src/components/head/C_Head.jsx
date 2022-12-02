@@ -3,11 +3,14 @@ import { Helmet } from 'react-helmet-async'
 
 import T_RA_NormalFonts from '@statics/fonts/T_RA_NormalFonts.woff2'
 
+import T_OgImage from './CinevieLogo.png'
+
 export const C_Head = (props) => {
   const {
     title = 'Discover your movies information | CineVie',
     description = 'A comprehensive movie information website',
     canonical = '/',
+    ogImage = T_OgImage,
   } = props
 
   const DOMAIN = 'https://cinevie.jpranata.tech'
@@ -75,10 +78,10 @@ export const C_Head = (props) => {
           property: 'og:title',
           content: `${title}`,
         },
-        /* {
+        {
           property: 'og:image',
           content: ogImage,
-        }, */
+        },
         {
           property: 'og:image:alt',
           content: title,
@@ -124,10 +127,10 @@ export const C_Head = (props) => {
           name: 'twitter:description',
           content: `${description}`,
         },
-        /* {
+        {
           name: 'twitter:image',
           content: ogImage,
-        }, */
+        },
         {
           name: 'twitter:image:alt',
           content: title,

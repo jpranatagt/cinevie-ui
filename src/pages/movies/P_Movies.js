@@ -49,13 +49,18 @@ const P_Movies = () => {
     ...metadata,
   }
 
+  const totalMovies = `${movies.length} of ${metadata.total_records} movies`
+
   return (
     <S_Wrapper>
       <C_Head
         title="Movie List"
         description="List of CinevVie movies"
       />
-      <h3>{status}</h3>
+      <S_Info>
+        <h3>{status}</h3>
+        <h6>{totalMovies}</h6>
+      </S_Info>
       <S_MoviesWrapper>
         {movies.map((movie) => (
           <S_Movie key={movie.title}>
@@ -103,6 +108,12 @@ const S_Wrapper = styled.section`
   ${S_Screen.md`
     gap: var(--spaceY-xxl);
   `}
+`
+
+const S_Info = styled.article`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `
 
 const S_MoviesWrapper = styled.ul`
