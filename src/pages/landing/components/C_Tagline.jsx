@@ -23,6 +23,8 @@ export const C_Tagline = () => {
 }
 
 const S_Wrapper = styled.article`
+  margin-top: var(--spaceY-xxl);
+
   h2 {
     margin-bottom: var(--spaceY-md);
   }
