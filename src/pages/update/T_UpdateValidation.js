@@ -19,12 +19,16 @@ export const T_UpdateValidation = {
     message: 'Cover url is not accepted',
   },
   trailer: {
-    isError: (url) => U_IsURLValid(url),
-    message: 'Trailer url is not accepted',
+    isError: (videoId) => U_IsLengthLess(videoId, 6),
+    message: 'Trailer must be Video ID from youtube',
   },
   year: {
     isError: (year) =>
-      U_MoreThan(year, 1888, parseInt(new Date().getFullYear()) + 1),
+      U_IsMoreThan(
+        year,
+        1888,
+        parseInt(new Date().getFullYear()) + 1
+      ),
     message: 'Release year must be greater than 1888',
   },
   runtime: {

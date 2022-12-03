@@ -14,7 +14,7 @@ const P_Movies = () => {
   const [dynamicURL, setDynamicURL] = React.useState(MOVIES_URL)
   const message = {
     onDefault: 'Movie List',
-    onRequest: 'Loading movie list',
+    onRequest: 'Loading Movie List',
     onSuccess: 'Movie List',
   }
 
@@ -49,7 +49,7 @@ const P_Movies = () => {
     ...metadata,
   }
 
-  const totalMovies = `${movies.length} of ${metadata.total_records} movies`
+  const totalMovies = `${movies.length} of ${metadata.total_records} movies on page ${metadata.current_page}`
 
   return (
     <S_Wrapper>

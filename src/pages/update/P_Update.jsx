@@ -20,17 +20,26 @@ const P_Update = () => {
     onSuccess: 'Send update',
   }
 
-  const { state, U_useGetAuthRequest, U_usePatchAuthRequest } =
+  const { state: getMovieState, U_useGetAuthRequest } =
+    U_useRequest(MOVIE_URL)
+  const { loading, error, data, status } = getMovieState
+
+  const { state: patchMovieState, U_usePatchAuthRequest } =
     U_useRequest(MOVIE_URL, message)
-  const { loading, error, data, status } = state
+  const {
+    loading: patchLoading,
+    error: patchError,
+    status: patchStatus,
+  } = patchMovieState
+
   U_useGetAuthRequest()
 
   const history = useHistory()
   React.useEffect(() => {
-    if (status === message.onSuccess) {
-      setTimeout(() => history.push('/movies'), 3000)
+    if (patchStatus === message.onSuccess) {
+      setTimeout(() => history.push(MOVIE_URL), 3000)
     }
-  }, [status])
+  }, [patchStatus])
 
   if (loading) {
     return (
@@ -65,7 +74,7 @@ const P_Update = () => {
         validation={T_UpdateValidation}
         initialState={movie}
         updateDynamic={updateDynamic}
-        title={status}
+        title={patchStatus}
         handlePost={U_usePatchAuthRequest}
       />
     </S_Wrapper>

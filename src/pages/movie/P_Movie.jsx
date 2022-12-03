@@ -19,6 +19,13 @@ const P_Movie = () => {
 
   U_useGetAuthRequest()
 
+  const embedTrailer = (videoId) => {
+    const YOUTUBE_EMBED_PREFIX = 'https://www.youtube.com/embed'
+    const embedURL = `${YOUTUBE_EMBED_PREFIX}/${videoId}`
+
+    return embedURL
+  }
+
   if (loading) {
     return (
       <S_Wrapper>
@@ -58,7 +65,7 @@ const P_Movie = () => {
           <img src={movie.cover} alt="movie cover" />
         </li>
         <li>
-          <iframe src={movie.trailer} />
+          <iframe src={embedTrailer(movie.trailer)} />
         </li>
       </S_Media>
       <S_Genres>
