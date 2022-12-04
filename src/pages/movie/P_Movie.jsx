@@ -12,6 +12,17 @@ import { C_Actions } from './C_Actions'
 
 const P_Movie = () => {
   const { id } = useParams()
+
+  const isIdNotANumber = isNaN(id)
+  if (isIdNotANumber) {
+    const errorInfo = {
+      statusCode: 404,
+      message: 'Not Found',
+    }
+
+    return <C_Error {...errorInfo} />
+  }
+
   const MOVIE_URL = `/movies/${id}`
 
   const { state, U_useGetAuthRequest } = U_useRequest(MOVIE_URL)
@@ -35,11 +46,11 @@ const P_Movie = () => {
   }
 
   if (error) {
-    const error = {
+    const errorInfo = {
       statusCode: code,
       message: status,
     }
-    return <C_Error {...error} />
+    return <C_Error {...errorInfo} />
   }
 
   const { movie } = data

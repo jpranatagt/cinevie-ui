@@ -9,10 +9,21 @@ import { U_useRequest } from '@utils'
 import { T_NewModel } from './T_NewModel'
 import { T_UpdateValidation } from './T_UpdateValidation'
 
-import { C_Form } from '@components'
+import { C_Error, C_Head, C_Form } from '@components'
 
 const P_Update = () => {
   const { id } = useParams()
+
+  const isIdNotANumber = isNaN(id)
+  if (isIdNotANumber) {
+    const errorInfo = {
+      statusCode: 404,
+      message: 'Not Found',
+    }
+
+    return <C_Error {...errorInfo} />
+  }
+
   const MOVIE_URL = `/movies/${id}`
   const message = {
     onDefault: 'Update',
@@ -26,11 +37,7 @@ const P_Update = () => {
 
   const { state: patchMovieState, U_usePatchAuthRequest } =
     U_useRequest(MOVIE_URL, message)
-  const {
-    loading: patchLoading,
-    error: patchError,
-    status: patchStatus,
-  } = patchMovieState
+  const { status: patchStatus } = patchMovieState
 
   U_useGetAuthRequest()
 
@@ -68,6 +75,10 @@ const P_Update = () => {
 
   return (
     <S_Wrapper>
+      <C_Head
+        title={`Update ${movie.title}`}
+        description={`Update: ${movie.description}`}
+      />
       <h3>Update the movie</h3>
       <C_Form
         model={T_NewModel}
